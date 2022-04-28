@@ -1,0 +1,19 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: near
+    name: futurenft.near
+    network: near-mainnet
+    source:
+      account: "futurenft.near"
+      startBlock: 56977958
+    mapping:
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - User
+      receiptHandlers:
+        - handler: handleReceipt
+      file: ./src/mapping.ts

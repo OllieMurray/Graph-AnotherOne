@@ -1,0 +1,71 @@
+/* futurenft.near
+https://github.com/r-strawser/subgraph-refinery
+--> */
+
+
+
+//logic for the request form Jordan...
+
+//on the one hand, we need to update members in a role...
+//role = nftVoters
+//with all the people who hold NFTs...
+//proposalkind::AddMemberToRole();
+//but it is important to allow this to be done with requirng votes...
+//so we update the policy to create a new role...    the NFTMemberManagerRole
+//to do this we need to know how to use                 ...ChangePolicy...
+//so we have a designated role that can only add people the NFTVoters role...
+//the specific outcome of the policy would be something like...
+
+
+  //how can we make it safe... so no one else can add another member to this role?
+  //how can we make it manageable so a council can change this?
+  //we should make it so that only the council can modify this role...
+  //depends on structure of DAO I suppose...
+  //
+
+
+  //we want the NFTMemberManagerRole to only have permisisons to modify the members in a specific policy...
+  //i.e. the NFTVoters Policy....
+{
+  "name": "NFTMemberManagerRole",
+  "kind": { "Group": ["NFTMemberManagerRole.testnet"] },
+  "permissions": [
+    "AddMemberToRole:WHAT IS ACTION?",
+    "RemoveMemberFromRole:WHAT IS ACTION?"
+  ],
+  "vote_policy": {
+    "weight_kind": "RoleWeight",
+    "quorum": "0",
+    "threshold": [1, 1]
+  },
+}
+
+
+
+//we also need to be able to create the policy/role for NFTvoters...
+{
+  "name": "NFTVoters",
+  "kind": { "Group": ["NFTVoter1.testnet","NFTVoter2.testnet","NFTVoter3.testnet"] },
+  "permissions": [
+    "WHAT PROPOSALS CAN THEY INFLUENCE:VoteApprove",
+    "WHAT PROPOSALS CAN THEY INFLUENCE:VoteReject",
+    "WHAT PROPOSALS CAN THEY INFLUENCE:VoteReject"
+  ],
+  "vote_policy": {
+    "weight_kind": "RoleWeight",
+    "quorum": "0",
+    "threshold": [1, 1]
+  },
+}
+
+
+
+
+
+
+
+
+//we also need a mechanism for adding all the NFT holders to the NFTvoters role...
+//...AddMemberToRole
+//called by the account in NFTMemberManagerRole
+
